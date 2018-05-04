@@ -4242,7 +4242,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   margin: 7.5px -15px;
 }
 
-.navbar-nav > li > a {
+.navbar-nav > li > a{
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
@@ -4501,8 +4501,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #003b64;
+  border-color: #003b64;
 }
 
 .navbar-inverse .navbar-brand {

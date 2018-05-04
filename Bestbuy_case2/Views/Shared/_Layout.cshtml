@@ -1,44 +1,593 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <link id="ctl00_favicon" type="image/x-icon" href="https://static.bbycastatic.ca/../../favicon.ico" rel="icon" />
+    <link type="text/css" media="all" rel="stylesheet" href="https://static.bbycastatic.ca/css/default.css?v=2.53" />
+    <link type="text/css" media="all" rel="stylesheet" href="https://static.bbycastatic.ca/css/bootstrap.css?v=2.61.5" />
+    <link type="text/css" media="all" rel="stylesheet" href="https://static.bbycastatic.ca/scripts/core-assets/styles/core.min.css?v=2.61" />
+    <link rel="stylesheet" type="text/css" href="https://static.bbycastatic.ca/projects/_css/includes/themes-and-layouts.min.css?v=20180116" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>BestBuy Canada</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+<body style="padding-top:0; font-size:16px;">
+    <nav class="main-navigation-container core-components core-utilities core-base bby-style-wrapper fdn">
+        <div class="row main-navigation">
+            <div class="columns navigation-links-column" style="width:100%">
+                <ul class="navigation-links inline-list">
+                    <li>
+                        <a id="ctl00_MasterHeader_ctl00_uchead_HypHeaderLogo" href="/" class="block" style="padding-left:10px">
+                            <img src="https://images.bbycastatic.ca/sf/images/common/main-logo.svg" class="margin-top-one block" width="60" alt="Best Buy Logo">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="navigation-link active" id="shop-menu-link" onclick="showPreferences()">
+                            Shop
+                        </a>
+                    </li>
+                    <li>
+                        <a class="navigation-link" id="brands-menu-link">
+                            Brands
+                        </a>
+                    </li>
+                    <li>
+                        <a class="navigation-link" id="deals-menu-link">
+                            Deals
+                        </a>
+                    </li>
+                    <li>
+                        <a class="navigation-link" id="services-menu-link">
+                            Services
+                        </a>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns small-12">
+                <div class="navigation-dropdown" id="preferenceList">
+                    <i class="navigation-dropdown-arrow shop-dropdown-arrow nav-caret-up"></i>
+                    <ul class="navigation-dropdown-tabs" style="font-size:14px;">
+                        <style>
+                            .nae-flyout .navigation-dropdown-content {
+                                background: #ffffff;
+                                background-size: cover;
+                                background-position: left bottom;
+                            }
+
+                            .new-and-exciting-bg {
+                                background: url("https://images.bbycastatic.ca/sf/projects/newexcitinghub/flyout/assets/nae-bg.jpg") no-repeat 97%;
+                                background-size: 98%;
+                            }
+
+                            .navigation-dropdown-tabs > li {
+                                padding: 5px 14px;
+                                height: 32.15px;
+                                line-height: 1.5;
+                            }
+
+                            .navigation-dropdown-tabs > .nae-flyout {
+                                height: 30px;
+                            }
+
+                            .navigation-dropdown-tabs .active-tab {
+                                background: #003152;
+                            }
+                                .navigation-dropdown-tabs .nae-flyout.active-tab a span {
+                                    color: white;
+                                }
+
+
+                            .navigation-dropdown-tabs > .nae-flyout .navigation-dropdown-tab {
+                                color: #fff;
+                            }
+                        </style>
+                        <li class="">
+                            <a href="#" class="navigation-dropdown-tab" onclick="showFilters()">Cell Phones 
+                            <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i>
+                            </a>
+
+                            <div class="navigation-dropdown-content" id="cell_phones" style="right:-140px;">
+                                <div class="nav-text-container">
+                                    <div class="padding-left-four">
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <span class="header-dropdown-heading">What factors do you value most?</span>
+
+                                                <div class="row">
+                                                    <div class="small-6 columns">
+                                                        <span>First Factor</span>
+                                                    </div>
+                                                    <div class="small-6 columns">
+                                                        <select id="selection" style="font-size: 12px;">
+                                                            <option></option>
+                                                            <option>Price</option>
+                                                            <option>Camera Resolution</option>
+                                                            <option>Brand</option>
+                                                            <option >Battery life</option>
+                                                            <option >Screen Size</option>
+                                                            <option >Tech generation</option>
+                                                            <option >Operating System</option>
+                                                            <option >Memory</option>
+                                                            <option >Phone Carrier</option>
+                                                            <option >Rating</option>
+                                                        </select>
+                                                    </div>
+                                                    <div id="brands" style="display:none;">
+                                                         <div class="small-6 column">Available Brands</div>
+                                                        <div class="small-6 column">
+                                                        <select style="font-size: 12px;">
+                                                            <option></option>
+                                                            <option>Samsung</option>
+                                                            <option>Google</option>
+                                                            <option>Apple</option>
+                                                            <option value="audi">One Plus</option>
+                                                            <option value="volvo">LG</option>
+                                                            <option value="volvo">Asus</option>
+                                                            <option value="volvo">Sony</option>
+                                                            <option value="volvo">Nokia</option>
+                                                    </select></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="small-6 columns">
+                                                        <span>Second Factor</span>
+                                                    </div>
+                                                    <div class="small-6 columns">
+                                                        <select style="font-size: 12px;">
+                                                            <option value="volvo"></option>
+                                                            <option>Price</option>
+                                                            <option>Camera Resolution</option>
+                                                            <option>Brand</option>
+                                                            <option value="audi">Battery life</option>
+                                                            <option value="volvo">Screen Size</option>
+                                                            <option value="volvo">Tech generation</option>
+                                                            <option value="volvo">Operating System</option>
+                                                            <option value="volvo">Memory</option>
+                                                            <option value="volvo">Phone Carrier</option>
+                                                            <option value="volvo">Rating</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div><div class="row">
+                                                    <div class="small-6 columns">
+                                                        <span>Third Factor</span>
+                                                    </div>
+                                                    <div class="small-6 columns">
+                                                        <select style="font-size: 12px;">
+                                                            <option value="volvo"></option>
+                                                            <option>Price</option>
+                                                            <option>Camera Resolution</option>
+                                                            <option>Brand</option>
+                                                            <option value="audi">Battery life</option>
+                                                            <option value="volvo">Screen Size</option>
+                                                            <option value="volvo">Tech generation</option>
+                                                            <option value="volvo">Operating System</option>
+                                                            <option value="volvo">Memory</option>
+                                                            <option value="volvo">Phone Carrier</option>
+                                                            <option value="volvo">Rating</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="small-6 column"><a onclick="showProducts()"class="button-solid button-blue">Find</a></div>
+                                                <div class="small-6 column"><a id="ctl00_CP_ctl00_pdpDynamicContent_Tab_custReview_hlRateReview" class="button-solid button-blue">Add more filters?</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-banner-container">
+                                    <a class="bby-style-wrapper no-underline relative" href="/en-CA/sc-125081/samsung-galaxy-s9?icmp=GS9_Flyout#galaxys9">
+                                        <div class="height-flyout padding-s-left padding-s-right padding-m-top colour-dark-grey" style="border-left:1px solid #ccc; background: url('https://images.bbycastatic.ca/sf/projects/_content/banners/_dropdown/cell-phones-column/assets/flyout-star-sku.png?v=1') no-repeat center 160px; width:216px;">
+
+                                            <img class="margin-xs-bottom" src="https://images.bbycastatic.ca/sf/projects/_content/banners/_dropdown/cell-phones-column/assets/flyout-star-lockup.png">
+
+                                            <p class="font-xs margin-s-bottom">Now available</p>
+                                            <p class="button-solid button-yellow">Shop Now</p>
+                                        </div>
+                                        <img class="absolute" src="https://images.bbycastatic.ca/sf/projects/_content/banners/_dropdown/cell-phones-column/assets/samsung.png" style="bottom:16px; left:16px;" alt="Samsung">
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <a href="#" class="navigation-dropdown-tab">Computers, Tablets &amp; Accessories <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>                           
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Printers, Ink &amp; Office Supplies <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">TV &amp; Home Theatre <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Cameras, Camcorders &amp; Drones <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li class="">
+                            <a href="#" class="navigation-dropdown-tab">Audio &amp; Car Electronics <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                          
+                        </li>
+                        <li class="">
+                            <a href="#" class="navigation-dropdown-tab">Smart Home Control &amp; Automation <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                          
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Wearable Technology <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Musical Instruments <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Video Games, Movies &amp; TV Shows <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Appliances <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Baby, Maternity &amp; Beauty<i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Fitness, Luggage &amp; Fashion <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>
+                           
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Home, Furniture &amp; Kitchen <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>                          
+                        </li>
+                        <li>
+                            <a href="#" class="navigation-dropdown-tab">Toys, Sports &amp; Recreation <i class="icon-bby-chevron-right navigation-dropdown-tab-icon"></i></a>                      
+                        </li>
+                    </ul>
+                </div>
+              </div>                  
+                </div>
+    </nav>
+
+    <div id="productsList" class="core-components core-utilities core-base bby-style-wrapper fdn" style="margin: 15px; display:none;">
+        <div class="row">
+            <div class="small-4 columns">
+                <div class="prod-image">
+                    <a href="/en-ca/product/apple-iphone-8-64gb-gold-rogers-bell-telus-select-2-year-agreement/11467285.aspx?"><img id="myImg" src="aa" width="150" height="150"></a>
+                    <div class="compare-checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span>Compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- added -->
+                <b><font id="price" size="4"> </font></b>
+                <p id="rating" style="font-size:12px;"></p>
+                <p id="brand" style="font-size:12px;"> Brand: Samsung</p>
+                <p id="tech-generation" style="font-size:12px;"> Tech-generation: 2017-08-23 </p>
+
+                <h4 class="prod-title"><a id="uuu" href=""></a></h4>
+
+                <script>
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://bizhacks.bbycastatic.ca/mobile-si/si/v4/pdp/overview/11467285?lang=en", false);
+                    xhr.send();
+                    var obj = JSON.parse(xhr.responseText);
+                    var keys = Object.keys(obj);
+
+                    // get json info
+                    var price = obj['overview']['priceBlock']['itemPrice']['customerPrice'];
+                    document.getElementById("price").innerHTML = "Customer Price: $" + price;
+
+                    var rating = obj['overview']['customerRatings']['averageRating']['score'];
+                    document.getElementById("rating").innerHTML = "Rating: " + rating
+
+                    var imgurl = obj['overview']['media']['galleryImages'][0]['path']
+                    document.getElementById('myImg').src = imgurl;
+
+                    var prodName = obj['overview']['names']['short'];
+                    var prodURL = obj['overview']['url'];
+                    document.getElementById('uuu').innerHTML = prodName;
+                    document.getElementById('uuu').href = prodURL;
+
+                </script>
+                <!-- prod-info end-->
+            </div>
+
+            <div class="small-4 columns">
+                <div class="prod-image">
+                    <a href="/en-ca/product/apple-iphone-8-64gb-gold-rogers-bell-telus-select-2-year-agreement/10649889.aspx?"><img id="myImg2" src="aa" width="150" height="150"></a>
+                    <div class="compare-checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span>Compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <b><font id="price2" size="4"> </font></b>
+                <p id="rating2" style="font-size:12px;"></p>
+                <p id="brand2" style="font-size:12px;"> Brand: Samsung</p>
+                <p id="tech-generation2" style="font-size:12px;"> Tech-generation: 2017-04-21 </p>
+
+                <h4 class="prod-title"><a id="uuu2" href=""></a></h4>
+
+                <script>
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://bizhacks.bbycastatic.ca/mobile-si/si/v4/pdp/overview/10649889?lang=en", false);
+                    xhr.send();
+                    var obj = JSON.parse(xhr.responseText);
+                    var keys = Object.keys(obj);
+
+                    // get json info
+                    var price = obj['overview']['priceBlock']['itemPrice']['customerPrice'];
+                    document.getElementById("price2").innerHTML = "Customer Price: $" + price;
+
+                    var rating = obj['overview']['customerRatings']['averageRating']['score'];
+                    document.getElementById("rating2").innerHTML = "Rating: " + rating
+
+                    var imgurl = obj['overview']['media']['galleryImages'][0]['path']
+                    document.getElementById('myImg2').src = imgurl;
+
+                    var prodName = obj['overview']['names']['short'];
+                    var prodURL = obj['overview']['url'];
+                    document.getElementById('uuu2').innerHTML = prodName;
+                    document.getElementById('uuu2').href = prodURL;
+
+                </script>
+                <!-- prod-info end-->
+            </div>
+
+            <div class="small-4 columns">
+                <div class="prod-image">
+                    <a href="/en-ca/product/apple-iphone-8-64gb-gold-rogers-bell-telus-select-2-year-agreement/10649895.aspx?"><img id="myImg3" src="aa" width="150" height="150"></a>
+                    <div class="compare-checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span>Compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <b><font id="price3" size="4"> </font></b>
+                <p id="rating3" style="font-size:12px;"></p>
+                <p id="brand3"style="font-size:12px;"> Brand: Samsung</p>
+                <p id="tech-generation3" style="font-size:12px;"> Tech-generation: 2017-04-21 </p>
+
+                <h4 class="prod-title"><a id="uuu3" href=""></a></h4>
+
+                <script>
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://bizhacks.bbycastatic.ca/mobile-si/si/v4/pdp/overview/10649895?lang=en", false);
+                    xhr.send();
+                    var obj = JSON.parse(xhr.responseText);
+                    var keys = Object.keys(obj);
+
+                    // get json info
+                    var price = obj['overview']['priceBlock']['itemPrice']['customerPrice'];
+                    document.getElementById("price3").innerHTML = "Customer Price: $" + price;
+
+                    var rating = obj['overview']['customerRatings']['averageRating']['score'];
+                    document.getElementById("rating3").innerHTML = "Rating: " + rating
+
+                    var imgurl = obj['overview']['media']['galleryImages'][0]['path']
+                    document.getElementById('myImg3').src = imgurl;
+
+                    var prodName = obj['overview']['names']['short'];
+                    var prodURL = obj['overview']['url'];
+                    document.getElementById('uuu3').innerHTML = prodName;
+                    document.getElementById('uuu3').href = prodURL;
+
+                </script>
+                <!-- prod-info end-->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="small-4 columns">
+                <div class="prod-image">
+                    <a href="/en-ca/product/apple-iphone-8-64gb-gold-rogers-bell-telus-select-2-year-agreement/11642414.aspx?"><img id="myImg4" src="aa" width="150" height="150"></a>
+                    <div class="compare-checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span>Compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <b><font id="price4" size="4"> </font></b>
+                <p id="rating4"style="font-size:12px;"></p>
+                <p id="brand4" style="font-size:12px;"> Brand: Google </p>
+                <p id="tech-generation4" style="font-size:12px;"> Tech-generation: 2017-10-17 </p>
+
+                <h4 class="prod-title"><a id="uuu4" href=""></a></h4>
+
+                <script>
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://bizhacks.bbycastatic.ca/mobile-si/si/v4/pdp/overview/11642414?lang=en", false);
+                    xhr.send();
+                    var obj = JSON.parse(xhr.responseText);
+                    var keys = Object.keys(obj);
+
+                    // get json info
+                    var price = obj['overview']['priceBlock']['itemPrice']['customerPrice'];
+                    document.getElementById("price4").innerHTML = "Customer Price: $" + price;
+
+                    var rating = obj['overview']['customerRatings']['averageRating']['score'];
+                    document.getElementById("rating4").innerHTML = "Rating: " + rating
+
+                    var imgurl = obj['overview']['media']['galleryImages'][0]['path']
+                    document.getElementById('myImg4').src = imgurl;
+
+                    var prodName = obj['overview']['names']['short'];
+                    var prodURL = obj['overview']['url'];
+                    document.getElementById('uuu4').innerHTML = prodName;
+                    document.getElementById('uuu4').href = prodURL;
+
+                </script>
+                <!-- prod-info end-->
+            </div>
+
+            <div class="small-4 columns">
+                <div class="prod-image">
+                    <a href="/en-ca/product/apple-iphone-8-64gb-gold-rogers-bell-telus-select-2-year-agreement/11642416.aspx?"><img id="myImg5" src="aa" width="150" height="150"></a>
+                    <div class="compare-checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span>Compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <b><font id="price5" size="4"> </font></b>
+                <p id="rating5" style="font-size:12px;"></p>
+                <p id="brand5" style="font-size:12px;"> Brand: Google</p>
+                <p id="tech-generation5" style="font-size:12px;"> Tech-generation: 2017-10-17 </p>
+
+                <h4 class="prod-title"><a id="uuu5" href=""></a></h4>
+
+                <script>
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://bizhacks.bbycastatic.ca/mobile-si/si/v4/pdp/overview/11642416?lang=en", false);
+                    xhr.send();
+                    var obj = JSON.parse(xhr.responseText);
+                    var keys = Object.keys(obj);
+
+                    // get json info
+                    var price = obj['overview']['priceBlock']['itemPrice']['customerPrice'];
+                    document.getElementById("price5").innerHTML = "Customer Price: $" + price;
+
+                    var rating = obj['overview']['customerRatings']['averageRating']['score'];
+                    document.getElementById("rating5").innerHTML = "Rating: " + rating
+
+                    var imgurl = obj['overview']['media']['galleryImages'][0]['path']
+                    document.getElementById('myImg5').src = imgurl;
+
+                    var prodName = obj['overview']['names']['short'];
+                    var prodURL = obj['overview']['url'];
+                    document.getElementById('uuu5').innerHTML = prodName;
+                    document.getElementById('uuu5').href = prodURL;
+
+                </script>
+                <!-- prod-info end-->
+            </div>
+
+            <div class="small-4 columns">
+                <div class="prod-image">
+                    <a href="/en-ca/product/apple-iphone-8-64gb-gold-rogers-bell-telus-select-2-year-agreement/10486324.aspx?"><img id="myImg6" src="aa" width="150" height="150"></a>
+                    <div class="compare-checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span>Compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <b><font id="price6" size="4"> </font></b>
+                <p id="rating6" style="font-size:12px;"></p>
+                <p id="brand6" style="font-size:12px;"> Brand: Apple</p>
+                <p id="tech-generation6" style="font-size:12px;"> Tech-generation: 2016-09-07 </p>
+
+                <h4 class="prod-title"><a id="uuu6" href=""></a></h4>
+
+                <script>
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://bizhacks.bbycastatic.ca/mobile-si/si/v4/pdp/overview/10486324?lang=en", false);
+                    xhr.send();
+                    var obj = JSON.parse(xhr.responseText);
+                    var keys = Object.keys(obj);
+
+                    // get json info
+                    var price = obj['overview']['priceBlock']['itemPrice']['customerPrice'];
+                    document.getElementById("price6").innerHTML = "Customer Price: $" + price;
+
+                    var rating = obj['overview']['customerRatings']['averageRating']['score'];
+                    document.getElementById("rating6").innerHTML = "Rating: " + rating
+
+                    var imgurl = obj['overview']['media']['galleryImages'][0]['path']
+                    document.getElementById('myImg6').src = imgurl;
+
+                    var prodName = obj['overview']['names']['short'];
+                    var prodURL = obj['overview']['url'];
+                    document.getElementById('uuu6').innerHTML = prodName;
+                    document.getElementById('uuu6').href = prodURL;
+
+                </script>
+                <!-- prod-info end-->
+            </div>
+
+        </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="buttons" onclick="showDifference()">
+                <a id="btn-cart" class="btn btn-primary" style="color: white;">Deep Compare</a>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <div class="w3-modal core-components core-utilities core-base bby-style-wrapper fdn" id="id01">
+    <div class="w3-modal-content w3-animate-zoom">
+      <header class="w3-container w3-teal"> 
+                    <span onclick="closeDifferenceForm()">&times;</span>
+                    <h2>What are the other differences?</h2>
+                </header>
+                <div class="w3-container row">
+                    <img src="https://bytebucket.org/SizheChen/coursework/raw/ff26733bc0db2c023076a198abfd182a0094d6b6/WechatIMG2357.jpeg" height="452" width="871" style="display: inline-block;margin:4px;" />
+                    <p class="small-3 columns" style="padding : 0;">You can pick one you like!</p>
+                    <input class="small-3 columns" type="button" value="Telus Apple iPhone 7 Plus 128GB" onclick="location.href='https://www.bestbuy.ca/en-ca/product/apple-telus-apple-iphone-7-plus-128gb-smartphone-black-2-year-agreement-mn4m2vc-a/10486324.aspx'">
+                    <input class="small-3 columns" type="button" value="Rogers Samsung Galaxy Note8 64GB" onclick="location.href='https://www.bestbuy.ca/en-ca/product/rogers-samsung-galaxy-note8-64gb-midnight-black-premium-plus-plan-2-year-agreement/11467285.aspx'">
+                    <input class="small-3 columns" type="button" value="Rogers Samsung Galaxy S8" onclick="location.href='https://www.bestbuy.ca/en-ca/product/rogers-samsung-galaxy-s8-smartphone-black-2-year-agreement/10649889.aspx'">
+                </div>
+        <footer class="w3-container w3-teal">
+            <p>Best Buy Best Recommendation</p>
+        </footer>
+            </div>
+        </div>
+    </div>
+        <script>
+            function showDifference() {
+                $('#id01').css("display", "block");
+            }
+            function closeDifferenceForm() {
+                $('#id01').css("display", "none");
+            }
+            function showPreferences() {
+                var d = $("#preferenceList").css("display");
+                if (d === "none")
+                    $('#preferenceList').css("display", "block");
+                else
+                    $('#preferenceList').css("display", "none");
+            }
+            function showFilters() {
+                var d = $("#cell_phones").css("display");
+                if (d === "none")
+                    $('#cell_phones').css("display", "block");
+                else
+                    $('#cell_phones').css("display", "none");
+            }
+            function showProducts() {
+                $('#preferenceList').css("display", "none");
+                $('#cell_phones').css("display", "none");
+                $('#productsList').css("display", "block");
+            }
+
+            $('#selection').on('change', function () {
+                if ($('#selection').find('option:selected').text() === 'Brand')
+                    $('#brands').css("display", "block");
+                else
+                    $('#brands').css("display", "none");
+            });
+        </script>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>
+        @RenderSection("scripts", required: false)
 </body>
 </html>
